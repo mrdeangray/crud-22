@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { v4 as uuid } from "uuid";
 import { TaskContext } from "../context/TaskProvider";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Input = styled.input`
   border: 2px solid green;
@@ -24,13 +25,17 @@ const CreateTask = () => {
     setInputValue(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
     const task = {};
     task.id = uuid();
-    task.score = 0;
+
     task.name = inputValue;
+    try {
+      const { data } = await axios(`https://api.github.com/users/${task.name}`);
+      task.score = data.public_repos;
+    } catch (error) {}
     task.createOn = new Date();
     task.modifiedOn = new Date();
 

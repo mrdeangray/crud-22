@@ -6,8 +6,8 @@ const Task = ({ task }) => {
   const [score, setScore] = useState(0);
 
   useEffect(() => {
-    getScore();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // getScore();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getScore = async () => {
@@ -20,7 +20,7 @@ const Task = ({ task }) => {
   return (
     <div className="box">
       <span>{task.name}</span>
-      <span>{score}</span>
+      <span>{task.score}</span>
       <span className="time">{task.modifiedOn.toLocaleString("en-US")}</span>
       <Link to={`/update/${task.id}`}>
         <span>Update</span>
